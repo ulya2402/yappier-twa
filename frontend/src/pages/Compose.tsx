@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useI18n } from '../hooks/useI18n';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigation } from '../hooks/useNavigation';
 import { fetchApi } from '../utils/api';
 import styles from './Compose.module.css';
@@ -17,11 +16,18 @@ const CATEGORIES = [
 ];
 
 export const Compose = () => {
-  const { t } = useI18n();
   const { setCurrentTab } = useNavigation();
   const [content, setContent] = useState('');
-  const [category, setCategory] = useState('tech');
+  const [category, setCategory] = useState('curhat'); // Default kategori
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Otomatis fokus ke area ketik saat halaman dibuka
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async () => {
     if (!content.trim() || isSubmitting) return;
@@ -32,60 +38,67 @@ export const Compose = () => {
         method: 'POST',
         body: JSON.stringify({ content, category })
       });
-      setContent('');
       setCurrentTab('feed');
-    } catch (error: any) {
-      console.error("Failed to post:", error);
-      // Memunculkan pesan error teknis aslinya agar kita tahu penyakitnya
-      alert("Gagal: " + (error.message || error)); 
-    } finally {
+    } catch (error) {
+      console.error("Gagal membuat postingan:", error);
       setIsSubmitting(false);
     }
   };
 
   return (
     <div className={styles.composeContainer}>
-      <textarea 
-        className={styles.inputArea}
-        placeholder={t.post?.placeholder || "Apa yang sedang terjadi?"}
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        disabled={isSubmitting}
-        autoFocus
-      />
+      {/* HEADER 3 KOLOM PRESISI */}
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
+          <button className={styles.cancelBtn} onClick={() => setCurrentTab('feed')}>
+            Batal
+          </button>
+        </div>
+        
+        <div className={styles.headerCenter}>
+          <h2 className={styles.headerTitle}>Buat Postingan</h2>
+        </div>
+        
+        <div className={styles.headerRight}>
+          <button 
+            className={styles.submitBtn} 
+            onClick={handleSubmit}
+            disabled={!content.trim() || isSubmitting}
+          >
+            <span>Kirim</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </header>
 
-      <div className={styles.bottomSection}>
-        <div className={styles.categoryGrid}>
+      {/* AREA KETIK */}
+      <div className={styles.inputArea}>
+        <textarea
+          ref={textareaRef}
+          className={styles.textarea}
+          placeholder="Apa yang sedang terjadi?"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          disabled={isSubmitting}
+        />
+      </div>
+
+      {/* KAPSUL KATEGORI */}
+      <div className={styles.categorySection}>
+        <h3 className={styles.categoryTitle}>Pilih Kategori</h3>
+        <div className={styles.categoryList}>
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
-              className={`interactive-element ${styles.categoryChip} ${category === cat.id ? styles.selected : ''}`}
+              className={`${styles.categoryPill} ${category === cat.id ? styles.activePill : ''}`}
               onClick={() => setCategory(cat.id)}
             >
               {cat.label}
             </button>
           ))}
-        </div>
-
-        <div className={styles.toolbar}>
-          {/* Ikon Lampiran (Image) */}
-          <button className={`interactive-element ${styles.toolBtn}`}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 8h.01" />
-              <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" />
-              <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
-              <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
-            </svg>
-          </button>
-          
-          {/* Tombol Kirim yang jauh lebih jelas */}
-          <button 
-            className={`interactive-element ${styles.submitBtn} ${content.trim() ? styles.active : ''}`}
-            onClick={handleSubmit}
-            disabled={!content.trim() || isSubmitting}
-          >
-            {isSubmitting ? 'Mengirim...' : 'Kirim'}
-          </button>
         </div>
       </div>
     </div>

@@ -4,8 +4,8 @@ import styles from './BottomNav.module.css';
 export const BottomNav = () => {
   const { currentTab, setCurrentTab } = useNavigation();
 
-  // Menyembunyikan navigasi bawah saat masuk ke halaman detail agar bersih
-  if (currentTab === 'post_detail') return null;
+  // KUNCI PRESISI: Sembunyikan navigasi bawah di halaman detail DAN halaman tulis postingan
+  if (currentTab === 'post_detail' || currentTab === 'compose') return null;
 
   return (
     <div className={styles.navWrapper}>
@@ -20,7 +20,7 @@ export const BottomNav = () => {
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
         </button>
 
-        {/* Tombol Tambah (+) Aksen Hitam/Putih di Tengah */}
+        {/* Tombol Tambah (+) */}
         <button className={`${styles.navItem} ${styles.composeBtn}`} onClick={() => setCurrentTab('compose')}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         </button>
