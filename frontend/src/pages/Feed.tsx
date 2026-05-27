@@ -82,9 +82,26 @@ export const Feed = () => {
 
   return (
     <div className={styles.feedContainer}>
-      <div className={styles.tabs}>
-        <button className={`interactive-element ${styles.tabBtn} ${activeTab === 'foryou' ? styles.active : ''}`} onClick={() => setActiveTab('foryou')}>{t.feed.foryou}</button>
-        <button className={`interactive-element ${styles.tabBtn} ${activeTab === 'latest' ? styles.active : ''}`} onClick={() => setActiveTab('latest')}>{t.feed.latest}</button>
+      <div className={styles.segmentedControl}>
+        {/* Kapsul yang meluncur (Bergeser 0% atau 100% berdasarkan status aktif) */}
+        <div 
+          className={styles.activeSlidingPill} 
+          style={{ transform: activeTab === 'foryou' ? 'translateX(0)' : 'translateX(100%)' }}
+        />
+        
+        <button 
+          className={`${styles.segmentBtn} ${activeTab === 'foryou' ? styles.active : ''}`} 
+          onClick={() => setActiveTab('foryou')}
+        >
+          {t.feed.foryou}
+        </button>
+        
+        <button 
+          className={`${styles.segmentBtn} ${activeTab === 'latest' ? styles.active : ''}`} 
+          onClick={() => setActiveTab('latest')}
+        >
+          {t.feed.latest}
+        </button>
       </div>
 
       <div className={styles.categoryScroll}>

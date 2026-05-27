@@ -1,56 +1,79 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
+/* ==========================================================================
+   SILICON VALLEY ARCHITECTURAL DOT-GRID PALETTE
+   ========================================================================== */
+
+/* MODE TERANG: Tech Studio Minimalist */
 :root {
-  --bg: #f7f7f7;
+  --bg-solid: #f9f9f9;
+  --grid-dot: rgba(56, 56, 56, 0.04); /* Warna titik matriks */
+  --glow-ambient: rgba(230, 235, 240, 0.6); /* Pendaran atas */
+  
   --surface: #ffffff;
   --card: #ffffff;
   --text-primary: #383838;
   --text-secondary: #555555;
   --text-tertiary: #888888;
-  --border: #d7d7d7;
+  --border: rgba(56, 56, 56, 0.06);
   --border-md: #bdbdbd;
-  --glass-bg: rgba(247, 247, 247, 0.75); /* Transparan */
+  
+  /* Efek Kaca Transparan Terapung */
+  --glass-bg: rgba(255, 255, 255, 0.85); 
   --accent: #383838;
-  --accent-fg: #f7f7f7;
-  --accent-dim: rgba(56, 56, 56, 0.04);
+  --accent-dim: rgba(56, 56, 56, 0.03);
+  
+  --fab-bg: #383838;
+  --fab-text: #f9f9f9;
 }
 
-/* PALET MODE GELAP */
+/* MODE GELAP: Cyber Matrix Obsidian */
 [data-theme='dark'] {
-  --bg: #383838;
-  --surface: #2d2d2d; /* Disesuaikan agar menyatu elegan */
-  --card: #2d2d2d;
+  --bg-solid: #141414;
+  --grid-dot: rgba(247, 247, 247, 0.03); /* Warna titik matriks gelap */
+  --glow-ambient: rgba(40, 50, 60, 0.4); /* Pendaran malam */
+  
+  --surface: #1c1c1c; 
+  --card: #1c1c1c;
   --text-primary: #f7f7f7;
-  --text-secondary: #d7d7d7;
-  --text-tertiary: #a0a0a0;
-  --border: #4a4a4a;
-  --border-md: #555555;
-  --glass-bg: rgba(56, 56, 56, 0.75); /* Transparan */
+  --text-secondary: #c5c5c5;
+  --text-tertiary: #888888;
+  --border: rgba(247, 247, 247, 0.05);
+  --border-md: #444444;
+  
+  /* Efek Kaca Transparan Gelap Terapung */
+  --glass-bg: rgba(28, 28, 28, 0.85); 
   --accent: #f7f7f7;
-  --accent-fg: #383838;
-  --accent-dim: rgba(247, 247, 247, 0.06);
+  --accent-dim: rgba(247, 247, 247, 0.04);
+  
+  --fab-bg: #f7f7f7;
+  --fab-text: #141414;
 }
 
-/* ANTI LAG: Batasi transisi hanya pada struktur utama saja */
 body, header, nav, footer, article, button, input {
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 * {
   box-sizing: border-box;
-}
-
-html {
-  font-size: 14px;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+  /* MANTRA ANTI FLICKER SENTUHAN HP */
+  -webkit-tap-highlight-color: transparent; 
+  outline: none;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Manrope', sans-serif;
-  background-color: var(--bg);
+  background-color: var(--bg-solid);
+  
+  /* TRIK MATRIKS TITIK + AMBIENT GLOW (SILICON VALLEY STYLE) */
+  background-image: 
+    radial-gradient(var(--grid-dot) 1.2px, transparent 1.2px), 
+    radial-gradient(circle at 50% 0%, var(--glow-ambient) 0%, transparent 50%);
+  background-size: 20px 20px, 100% 100%; /* Ukuran grid titik kotak 20px presisi */
+  background-attachment: fixed;
+  
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
 }

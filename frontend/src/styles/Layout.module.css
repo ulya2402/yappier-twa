@@ -18,25 +18,28 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   
-  background: transparent;
-  border: none;
+ background-color: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  
   position: sticky;
   top: 0;
   z-index: 50;
-  pointer-events: none;
+  /* Izinkan sentuhan jari di seluruh area bar atas */
+  pointer-events: auto; 
 }
 
-.headerLeft { display: flex; justify-content: flex-start; pointer-events: auto; }
-.headerCenter { display: flex; justify-content: center; pointer-events: auto; }
-.headerRight { display: flex; justify-content: flex-end; pointer-events: none; }
+.headerLeft { display: flex; justify-content: flex-start; }
+.headerCenter { display: flex; justify-content: center; }
+.headerRight { display: flex; justify-content: flex-end; }
 
 .headerTitle {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
   margin: 0;
   letter-spacing: -1.2px;
   color: var(--text-primary);
-  text-shadow: 0 0 16px var(--bg), 0 0 24px var(--bg);
 }
 
 .themeToggleBtn {
@@ -49,7 +52,6 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  box-shadow: 0 4px 12px var(--accent-dim);
   cursor: pointer;
 }
 .themeToggleBtn:active { transform: scale(0.9); }

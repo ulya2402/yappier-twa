@@ -4,25 +4,49 @@
   width: 100%;
 }
 
-.tabs {
+/* --- SLIDING PILL TABS (DESAIN KAPSUL MELUNCUR) --- */
+.segmentedControl {
+  position: relative;
   display: flex;
-  margin: 16px 20px;
-  background-color: var(--surface);
+  background-color: var(--accent-dim); /* Warna latar redup pembeda dari background */
+  border: 1px solid var(--border);
+  border-radius: 20px; /* Bentuk kapsul luar */
   padding: 4px;
-  border-radius: 16px;
-  gap: 4px;
+  margin: 16px 20px 12px 20px;
+  z-index: 1;
 }
 
-.tabBtn {
+/* Animasi Kapsul Aktif yang Meluncur */
+.activeSlidingPill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: calc(50% - 4px);
+  background-color: var(--surface); /* Warna kapsul terang ber-kontras */
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); /* Efek 3D timbul sedikit */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.segmentBtn {
   flex: 1;
-  background-color: transparent;
+  background: transparent;
   border: none;
-  padding: 12px 0;
-  font-weight: 600;
+  padding: 10px 0;
   font-size: 14px;
-  color: var(--text-secondary);
-  border-radius: 12px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 700;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  
+  /* PENGAMAN EKSTRA */
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.segmentBtn.active {
+  color: var(--text-primary);
 }
 
 .tabBtn.active {
@@ -121,20 +145,28 @@
 
 .fab {
   position: fixed !important;
-  /* Mendorong tombol menyesuaikan safe area bawah */
-  bottom: calc(76px + var(--tg-safe-area-inset-bottom, env(safe-area-inset-bottom, 20px))) !important;
-  right: 20px !important;
+  /* Disesuaikan tepat melayang di atas dermaga baru */
+  bottom: calc(88px + var(--tg-safe-area-inset-bottom, env(safe-area-inset-bottom, 16px))) !important;
+  right: 24px !important;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--text-primary);
-  color: var(--bg);
-  border: none;
+  
+  background-color: var(--fab-bg) !important;
+  color: var(--fab-text) !important;
+  border: 1px solid var(--border);
+  
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  z-index: 99;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  z-index: 999 !important;
+}
+
+.fab svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
 }
 
 .fab:active {

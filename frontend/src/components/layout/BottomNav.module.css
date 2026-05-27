@@ -1,19 +1,37 @@
-.navContainer {
+/* Pembungkus luar agar bisa diposisikan pas di tengah bawah layar */
+.navWrapper {
   position: fixed;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom, 16px);
   left: 0;
   right: 0;
-  /* Padding bawah dinamis: Mendorong ikon ke atas garis gestur */
-  padding-top: 10px;
-  padding-bottom: calc(10px + var(--tg-safe-area-inset-bottom, env(safe-area-inset-bottom, 20px)));
+  display: flex;
+  justify-content: center;
+  padding-bottom: 24px;
+  z-index: 1000;
+  /* Membiarkan sentuhan jari tembus ke layar di luar kapsul */
+  pointer-events: none; 
+}
+
+/* Bentuk Dermaga Kapsul (Floating Island) */
+.navContainer {
+  width: 85%;
+  max-width: 320px;
+  height: 64px;
+  border-radius: 32px;
+  
+  /* EFEK KACA YANG DIPERTEGAS */
   background-color: var(--glass-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid var(--border);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  
   display: flex;
   justify-content: space-around;
   align-items: center;
-  z-index: 100;
+  padding: 0 12px;
+  /* Mengembalikan fungsi sentuh khusus untuk dalam kapsul */
+  pointer-events: auto; 
 }
 
 .navItem {
@@ -24,11 +42,52 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  position: relative;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navItem svg {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navItem:active svg {
+  transform: scale(0.85);
 }
 
 .navItem.active {
   color: var(--text-primary);
+}
+
+/* Tombol Tambah (+) Spesial di Tengah Kapsul */
+.composeBtn {
+  background-color: var(--text-primary);
+  color: var(--bg-solid);
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  box-shadow: 0 4px 12px var(--accent-dim);
+}
+.composeBtn:active {
+  transform: scale(0.9);
+}
+
+/* Indikator Titik Elegan di Bawah Ikon Aktif */
+.navItem.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--text-primary);
+  animation: popIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
