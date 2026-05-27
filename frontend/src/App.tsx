@@ -72,15 +72,10 @@ const MainShell = () => {
       const tg = (window as any).Telegram?.WebApp;
       if (tg) {
         tg.expand();
-        
-        // PENTING: Mencegah Mini App tertutup sendiri saat pengguna men-swipe layar ke bawah
         if (tg.disableVerticalSwipes) {
           tg.disableVerticalSwipes();
         }
-        
-        const whiteColor = '#ffffff';
-        if (tg.setHeaderColor) tg.setHeaderColor(whiteColor);
-        if (tg.setBackgroundColor) tg.setBackgroundColor(whiteColor);
+        // KODE WARNA PUTIH DIHAPUS DARI SINI
       }
     } catch (err) {
       console.error("Telegram UI init error:", err);

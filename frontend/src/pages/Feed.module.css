@@ -121,25 +121,34 @@
 
 .fab {
   position: fixed !important;
-  top: auto !important; 
-  bottom: 84px !important; 
+  /* Mendorong tombol menyesuaikan safe area bawah */
+  bottom: calc(76px + var(--tg-safe-area-inset-bottom, env(safe-area-inset-bottom, 20px))) !important;
   right: 20px !important;
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-pill);
-  background-color: var(--accent); /* Tombol akan berwarna hitam legam */
-  color: var(--accent-fg); /* Ikon Plus berwarna putih */
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--text-primary);
+  color: var(--bg);
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* BAYANGAN ESTETIK: Lembut, transparan, dan berkelas */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  z-index: 9999 !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  z-index: 99;
 }
 
 .fab:active {
-  transform: scale(0.9);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transform: scale(0.92);
+}
+
+/* Pastikan sistem transisi feed menggunakan versi ringan tanpa GPU scale */
+.cardWrapper {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.cardVisible {
+  opacity: 1;
+  transform: translateY(0);
 }

@@ -8,29 +8,51 @@
 }
 
 .header {
-  height: 60px;
-  display: flex;
+  padding-top: calc(36px + var(--tg-content-safe-area-inset-top, env(safe-area-inset-top, 28px)));
+  padding-bottom: 16px;
+  padding-left: 20px;
+  padding-right: 20px;
+  
+  /* TEKNIK GRID 3 KOLOM: Mengunci yang tengah persis di tengah */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: flex-start; /* Logo rata kiri secara natural */
-  padding: 0 24px;
-  background-color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  
+  background: transparent;
+  border: none;
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+  pointer-events: none;
 }
 
+.headerLeft { display: flex; justify-content: flex-start; pointer-events: auto; }
+.headerCenter { display: flex; justify-content: center; pointer-events: auto; }
+.headerRight { display: flex; justify-content: flex-end; pointer-events: none; }
+
 .headerTitle {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
   margin: 0;
-  letter-spacing: -1px;
+  letter-spacing: -1.2px;
   color: var(--text-primary);
-  cursor: pointer;
-  transition: opacity 0.2s ease;
+  text-shadow: 0 0 16px var(--bg), 0 0 24px var(--bg);
 }
+
+.themeToggleBtn {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px var(--accent-dim);
+  cursor: pointer;
+}
+.themeToggleBtn:active { transform: scale(0.9); }
 
 .headerAction {
   background: none;
