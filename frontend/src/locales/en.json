@@ -1,0 +1,27 @@
+{
+  "feed": {
+    "foryou": "For You",
+    "trending": "Trending",
+    "latest": "Latest",
+    "following": "Following"
+  },
+  "post": {
+    "compose": "Create Post",
+    "placeholder": "What's happening?"
+  },
+  "profile": {
+    "posts": "Posts",
+    "media": "Media",
+    "saved": "Saved",
+    "followers": "Followers",
+    "following": "Following",
+    "empty": "Nothing here yet"
+  },
+  "notifications": {
+    "all": "All",
+    "likes": "Likes",
+    "comments": "Comments",
+    "follows": "Follows",
+    "empty": "No notifications yet"
+  }
+}

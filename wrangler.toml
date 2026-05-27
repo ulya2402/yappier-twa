@@ -1,0 +1,12 @@
+name = "yappier-api"
+main = "src/index.ts"
+compatibility_date = "2024-05-26"
+
+[env.production]
+name = "yappier-api-prod"
+route = { pattern = "api.yappier.pages.dev/*", zone_name = "yappier.pages.dev" }
+
+[[d1_databases]]
+binding = "DB"
+database_name = "yappier-db"
+database_id = "ISI_DENGAN_D1_ID_ANDA_NANTI"

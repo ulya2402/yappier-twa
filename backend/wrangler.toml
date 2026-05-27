@@ -1,0 +1,8 @@
+name = "yappier-api"
+main = "src/index.ts"
+compatibility_date = "2024-05-26"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "yappier-db"
+database_id = "a47e0dc3-ffa3-43c9-ab19-628ee927e590"

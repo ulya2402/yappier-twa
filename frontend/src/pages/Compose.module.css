@@ -1,0 +1,101 @@
+.composeContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  min-height: 100%;
+}
+
+.inputArea {
+  width: 100%;
+  min-height: 200px; /* Hapus flex: 1 dan pakai tinggi ini agar tombol Kirim tidak terdorong */
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 22px;
+  line-height: 1.4;
+  resize: none;
+  outline: none;
+  margin-bottom: 24px;
+  font-family: inherit;
+}
+
+.inputArea::placeholder {
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.bottomSection {
+  margin-top: auto;
+  padding-bottom: 20px;
+  animation: slideUpFade 0.4s ease forwards;
+}
+
+.categoryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.categoryChip {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.categoryChip.selected {
+  background-color: var(--text-primary);
+  color: var(--bg);
+  border-color: var(--text-primary);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolBtn {
+  background-color: transparent;
+  border: none;
+  color: var(--text-secondary);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-pill);
+}
+
+.toolBtn:active {
+  background-color: var(--card);
+  color: var(--text-primary);
+}
+
+.submitBtn {
+  margin-left: auto;
+  background-color: var(--border-md);
+  color: var(--text-secondary);
+  border: none;
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  font-size: 15px;
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.submitBtn.active {
+  background-color: var(--text-primary);
+  color: var(--bg);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.submitBtn:disabled {
+  pointer-events: none;
+}

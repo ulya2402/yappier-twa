@@ -1,0 +1,158 @@
+.card {
+  background-color: var(--card);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 20px; /* Lengkungan modern ala Apple */
+  padding: 20px;
+  /* BAYANGAN DIPERBAIKI: Lebih tegas agar berjarak dari warna putih, tapi tetap halus */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.categoryBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 800;
+  padding: 6px 12px;
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  border-radius: var(--radius-pill);
+  margin-left: auto;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.time {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin: 0;
+  font-weight: 500;
+}
+
+.content {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0 0 20px 0;
+  white-space: pre-wrap;
+}
+
+.actions {
+  display: flex;
+  gap: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.02);
+  padding-top: 16px;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.actionBtn:hover, .actionBtn:active {
+  color: var(--text-primary);
+}
+
+/* Memperhalus tampilan ikon (Line-art style) */
+.actionBtn svg {
+  stroke-width: 1.5; 
+}
+
+/* ... (kode yang sudah ada biarkan saja) ... */
+
+.categoryBadge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 800;
+  padding: 4px 10px;
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  border-radius: var(--radius-pill);
+  margin-left: auto; /* Mendorong lencana ke ujung kanan kartu */
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.commentPreviewSection {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: var(--surface);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.previewItem {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.previewUser {
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.previewText {
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viewMore {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}

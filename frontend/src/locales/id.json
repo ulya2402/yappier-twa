@@ -1,0 +1,27 @@
+{
+  "feed": {
+    "foryou": "Untukmu",
+    "trending": "Trending",
+    "latest": "Terbaru",
+    "following": "Following"
+  },
+  "post": {
+    "compose": "Buat Post",
+    "placeholder": "Apa yang sedang terjadi?"
+  },
+  "profile": {
+    "posts": "Postingan",
+    "media": "Media",
+    "saved": "Disimpan",
+    "followers": "Pengikut",
+    "following": "Mengikuti",
+    "empty": "Belum ada"
+  },
+  "notifications": {
+    "all": "Semua",
+    "likes": "Like",
+    "comments": "Komentar",
+    "follows": "Follow",
+    "empty": "Tidak ada notifikasi"
+  }
+}
