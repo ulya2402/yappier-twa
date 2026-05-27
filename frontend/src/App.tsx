@@ -6,11 +6,40 @@ import { Feed } from './pages/Feed';
 import { Compose } from './pages/Compose';
 import { Profile } from './pages/Profile';
 import { Notifications } from './pages/Notifications';
-import { PostDetail } from './pages/PostDetail'; // TAMBAHKAN IMPORT INI
+import { PostDetail } from './pages/PostDetail';
 import './styles/theme.css';
 
 const ViewRenderer = () => {
-  const { currentTab } = useNavigation();
+  const { currentTab, setCurrentTab, setActivePostId } = useNavigation();
+
+  // PENGATURAN SWIPE BACK & TOMBOL KEMBALI NATIVE TELEGRAM
+  useEffect(() => {
+    const tg = (window as any).Telegram?.WebApp;
+    if (!tg) return;
+
+    // Fungsi jika tombol 'Kembali' Telegram atau Swipe Kiri ditekan
+    const handleBack = () => {
+      if (currentTab === 'post_detail') {
+        setCurrentTab('feed');
+        setActivePostId(null);
+      } else if (currentTab !== 'feed') {
+        setCurrentTab('feed');
+      }
+    };
+
+    // Tampilkan tombol back jika bukan di beranda
+    if (currentTab !== 'feed') {
+      tg.BackButton.show();
+      tg.BackButton.onClick(handleBack);
+    } else {
+      tg.BackButton.hide();
+      tg.BackButton.offClick(handleBack);
+    }
+
+    return () => {
+      tg.BackButton.offClick(handleBack);
+    };
+  }, [currentTab, setCurrentTab, setActivePostId]);
 
   const renderContent = () => {
     switch (currentTab) {
@@ -20,7 +49,7 @@ const ViewRenderer = () => {
         return <Notifications />;
       case 'profile':
         return <Profile />;
-      case 'post_detail':    
+      case 'post_detail':
         return <PostDetail />;
       case 'feed':
       default:
@@ -44,15 +73,14 @@ const MainShell = () => {
       if (tg) {
         tg.expand();
         
-        // Memaksa warna header Telegram menjadi putih bersih
-        const whiteColor = '#ffffff';
+        // PENTING: Mencegah Mini App tertutup sendiri saat pengguna men-swipe layar ke bawah
+        if (tg.disableVerticalSwipes) {
+          tg.disableVerticalSwipes();
+        }
         
-        if (tg.setHeaderColor) {
-          tg.setHeaderColor(whiteColor);
-        }
-        if (tg.setBackgroundColor) {
-          tg.setBackgroundColor(whiteColor);
-        }
+        const whiteColor = '#ffffff';
+        if (tg.setHeaderColor) tg.setHeaderColor(whiteColor);
+        if (tg.setBackgroundColor) tg.setBackgroundColor(whiteColor);
       }
     } catch (err) {
       console.error("Telegram UI init error:", err);
@@ -62,7 +90,7 @@ const MainShell = () => {
   if (isLoading) {
     return (
       <div style={{ display: 'flex', height: '100dvh', justifyContent: 'center', alignItems: 'center' }}>
-        <span style={{ fontWeight: 600, color: 'var(--text-secondary)' }}>Loading...</span>
+        <span style={{ fontWeight: 600, color: 'var(--text-secondary)', letterSpacing: '2px' }}>● ● ●</span>
       </div>
     );
   }

@@ -48,15 +48,31 @@ export default {
         if (authHeader && authHeader.startsWith("tma ")) {
           try { userId = (await verifyInitData(authHeader.slice(4), env.TELEGRAM_BOT_TOKEN)).id.toString(); } catch (e) {}
         }
-        const { results } = await env.DB.prepare(`
+
+        // Mengecek apakah ada permintaan khusus untuk mengambil postingan milik sendiri
+        const isMine = url.searchParams.get("mine") === "true";
+        
+        let query = `
           SELECT p.*, 
             (SELECT COUNT(*) FROM likes l WHERE l.post_id = p.id) as likes, 
             (SELECT COUNT(*) FROM comments c WHERE c.post_id = p.id) as comments,
             (SELECT 1 FROM likes l WHERE l.post_id = p.id AND l.telegram_id = ?) as is_liked
-          FROM posts p ORDER BY created_at DESC LIMIT 50
-        `).bind(userId).all();
+          FROM posts p
+        `;
+        
+        let results;
+        if (isMine && userId) {
+          // Jika ?mine=true, filter berdasarkan telegram_id
+          query += ` WHERE p.telegram_id = ? ORDER BY created_at DESC LIMIT 50`;
+          results = (await env.DB.prepare(query).bind(userId, userId).all()).results;
+        } else {
+          // Jika tidak, tampilkan semua (untuk Feed Beranda)
+          query += ` ORDER BY created_at DESC LIMIT 50`;
+          results = (await env.DB.prepare(query).bind(userId).all()).results;
+        }
+
         return new Response(JSON.stringify(results), { headers: { "Content-Type": "application/json", ...corsHeaders } });
-      }
+      } 
 
       if (url.pathname === "/api/posts" && request.method === "POST") {
         const authHeader = request.headers.get("Authorization");
